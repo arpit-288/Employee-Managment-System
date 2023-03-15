@@ -1,0 +1,154 @@
+
+
+<div class="mat-elevation-z8 " id="main-con">
+
+  <div class="container"><button  [routerLink]="['/home/employee-form']" class="btn btn-success float-right" type="submit">Add Employee</button></div>
+
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container> -->
+
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let element  let i = index"  > {{i+1}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+    </ng-container>
+
+
+    <!-- Designation Column -->
+    <ng-container matColumnDef="Designation">
+      <th mat-header-cell *matHeaderCellDef> Designation </th>
+      <td mat-cell *matCellDef="let element"> {{element.Designation}} </td>
+    </ng-container>
+
+    <!-- Department -->
+    <ng-container matColumnDef="Department">
+      <th mat-header-cell *matHeaderCellDef> Department </th>
+      <td mat-cell *matCellDef="let element"> {{element.Department}} </td>
+    </ng-container>
+
+    <!-- Department -->
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+    </ng-container>
+
+    <!-- Phone Number -->
+    <ng-container matColumnDef="Phone">
+      <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+    </ng-container>
+
+    <!-- Date -->
+    <ng-container matColumnDef="Date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.Date | date: 'dd/MM/yyyy'  }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element;let i = index"> <button class="btn btn-warning" (click)="update(i)">Update</button> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element;let i = index"> <button class="btn btn-danger" (click)="deleteEmployee(element.id,i)">Delete</button> </td>
+    </ng-container>
+
+
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+  </table>
+
+
+  <!-- Pop Model for Updating Employee Deatils -->
+
+  <div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title align">Update Employee Details</h4>
+      </div>
+      <div class="modal-body">
+        <p>Here is all the details of Employee</p>
+
+        <form>
+          <div class="form-group m-2">
+            <label class="mb-2" for="exampleInputEmail1">Employee Name</label>
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateName" placeholder="Enter Employee Name">
+
+          </div>
+          <div class="form-group m-2">
+            <label class="mb-2" for="exampleInputPassword1">Designantion</label>
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateDesignation" id="exampleInputDesignation" placeholder="Designantion">
+          </div>
+          <div class="form-group m-2">
+            <label class="mb-2" for="exampleInputPassword1">Department</label>
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateDepartment" id="exampleInputDepartment" placeholder="Department">
+          </div>
+          <div class="form-group m-2">
+            <label class="mb-2" for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateEmail" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter email">
+
+          </div>
+          <div class="form-group m-2">
+            <label class="mb-2" for="exampleInputPassword1">Phone Number</label>
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updatePhone" id="exampleInputPhone" placeholder="Phone Number">
+          </div>
+          <!-- {{updateDate}} -->
+          <div class="form-group m-2">
+            <label class="mb-2" for="exampleInputPassword1">Date of Joining</label>
+            <input type="date" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateDate" id="exampleInputDesignation" placeholder="Designantion">
+          </div>
+          <div class="form-check m-2">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="mb-2" class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+
+
+        </form>
+
+        <!-- <button type="button" (click)="Save()" class="btn btn-primary btn-lg btn-block">Submit Deatils</button> -->
+         <!-- <div class="container">
+
+          <button type="button" class="btn btn-primary  btn-block">Submit</button>
+        </div> -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success"
+                (click)="Save()">
+          Save Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                  showFirstLastButtons
+                  aria-label="Select page of periodic elements">
+    </mat-paginator> -->
+
+</div>

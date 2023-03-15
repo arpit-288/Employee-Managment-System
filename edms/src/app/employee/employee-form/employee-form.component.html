@@ -1,0 +1,47 @@
+<div class="container m-2 p-2  w-100" id="main-con">
+
+  <div class="alert alert-primary align-center" role="alert">
+    <h4>New Employee Details</h4>
+    <p>"Welcome aboard!, Now you are a part of our organisation"</p>
+  </div>
+
+  <form>
+    <div class="form-group m-2">
+      <label class="mb-2" for="exampleInputEmail1">Employee Name</label>
+      <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="Name" placeholder="Enter Employee Name">
+      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+    </div>
+    <div class="form-group m-2">
+      <label class="mb-2" for="exampleInputPassword1">Designantion</label>
+      <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="Designation" id="exampleInputDesignation" placeholder="Designantion">
+    </div>
+    <div class="form-group m-2">
+      <label class="mb-2" for="exampleInputPassword1">Department</label>
+      <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="Department" id="exampleInputDepartment" placeholder="Department">
+    </div>
+    <div class="form-group m-2">
+      <label class="mb-2" for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="Email" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter email">
+      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+    </div>
+    <div class="form-group m-2">
+      <label class="mb-2" for="exampleInputPassword1">Phone Number</label>
+      <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="Phone" id="exampleInputPhone" placeholder="Phone Number">
+    </div>
+    <div class="form-group m-2">
+      <label class="mb-2" for="exampleInputPassword1">Date of Joining</label>
+      <input type="date" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="Date" id="exampleInputDesignation" placeholder="Designantion">
+    </div>
+
+
+
+    <button type="button" (click)="Submit()" class="btn w-100 btn-outline-info btn btn-block ml-4 mt-4 p-2  ">Submit Deatils</button>
+    <!-- <div class="container">
+
+      <button type="button" class="btn btn-primary  btn-block">Submit</button>
+    </div> -->
+  </form>
+
+
+</div>

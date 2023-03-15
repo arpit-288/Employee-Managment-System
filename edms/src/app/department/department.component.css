@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+#main-con{
+  border: 1px solid;
+    padding: 8px;
+    margin: 7px 12px 6px 9px;
+    border-radius: 2%;
+    box-shadow: 3px 3px #0000006b;
+
+}
+button{
+  float: right;
+  margin: 6px;
+}
+
+.align{
+  text-align: center;
+  justify-content: center;
+}

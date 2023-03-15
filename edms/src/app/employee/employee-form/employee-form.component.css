@@ -1,0 +1,15 @@
+#main-con{
+  border: 1px solid;
+  padding: 16px 10px 12px 10px;
+  margin: 0px 3px 0px -16px;
+  border-radius: 2%;
+  box-shadow: 3px 3px #0000006b;
+  /* width: 100%; */
+
+}
+.align-center{
+  text-align: center;
+}
+/* .myBtn{
+text-align: center;
+} */
