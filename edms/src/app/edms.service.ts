@@ -43,6 +43,7 @@ export class EdmsService {
   updateData(id:number,obj:{task_name:string}):Observable<any>{
       return this.http.put(`${this.apiurl}/employee/${id}`,obj);
   }
+
   deleteData(id:number):Observable<any>{
       return this.http.delete(`${this.apiurl}/employee/${id}`);
   }
@@ -56,6 +57,9 @@ export class EdmsService {
   return this.http.post(`${this.apiurl}/employeedetails`,obj).pipe(map((response:any)=> response.data as edms[]));
 }
 
+updateEmployeeDetails(id:number, obj:{ Name:string, Designation:string, Department:string, Email: string, Phone: number, Date: Date|string }):Observable<any>{
+  return this.http.put(`${this.apiurl}/employeedetails/${id}`,obj);
+}
 
 
   deleteEmployee(id:number):Observable<any>{

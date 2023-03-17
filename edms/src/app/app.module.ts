@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
 import {MatTableModule} from '@angular/material/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // import {ModuleOfNgb} from '@ng-bootstrap/ng-bootstrap';
 // import { ModuleOfNg } from '@angular/core';
 
@@ -33,13 +35,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EmployeeFormComponent
   ],
   imports: [
+
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

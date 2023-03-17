@@ -1,8 +1,8 @@
-
-
 <div class="mat-elevation-z8 " id="main-con">
 
-  <div class="container"><button  [routerLink]="['/home/employee-form']" class="btn btn-success float-right" type="submit">Add Employee</button></div>
+  <div class="container"><button [routerLink]="['/home/employee-form']" class="btn btn-success float-right"
+      type="submit">Add Employee</button></div>
+
 
   <table mat-table [dataSource]="dataSource">
 
@@ -14,8 +14,8 @@
 
     <!-- id Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> id </th>
-      <td mat-cell *matCellDef="let element  let i = index"  > {{i+1}} </td>
+      <th mat-header-cell *matHeaderCellDef> S.No. </th>
+      <td mat-cell *matCellDef="let element;">{{element.sno}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -52,38 +52,37 @@
     <!-- Date -->
     <ng-container matColumnDef="Date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.Date | date: 'dd/MM/yyyy'  }} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Date | date: 'dd/MM/yyyy' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="update">
       <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element;let i = index"> <button class="btn btn-warning" (click)="update(i)">Update</button> </td>
+      <td mat-cell *matCellDef="let element;let i = index"> <button class="btn btn-warning"
+          (click)="update(element.id,i)">Update</button> </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element;let i = index"> <button class="btn btn-danger" (click)="deleteEmployee(element.id,i)">Delete</button> </td>
+      <td mat-cell *matCellDef="let element;let i = index"> <button class="btn btn-danger"
+          (click)="deleteEmployee(element.id,i)">Delete</button> </td>
     </ng-container>
-
-
-
-
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-
-
   </table>
 
 
-  <!-- Pop Model for Updating Employee Deatils -->
+  <div class="dp">
 
-  <div
-  class="modal"
-  tabindex="-1"
-  role="dialog"
-  [ngStyle]="{'display':displayStyle}">
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of  elements">
+    </mat-paginator>
+  </div>
+
+</div>
+<!-- Pop Model for Updating Employee Deatils -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -95,31 +94,36 @@
         <form>
           <div class="form-group m-2">
             <label class="mb-2" for="exampleInputEmail1">Employee Name</label>
-            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateName" placeholder="Enter Employee Name">
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="updateName"
+              placeholder="Enter Employee Name">
 
           </div>
           <div class="form-group m-2">
             <label class="mb-2" for="exampleInputPassword1">Designantion</label>
-            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateDesignation" id="exampleInputDesignation" placeholder="Designantion">
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="updateDesignation" id="exampleInputDesignation" placeholder="Designantion">
           </div>
           <div class="form-group m-2">
             <label class="mb-2" for="exampleInputPassword1">Department</label>
-            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateDepartment" id="exampleInputDepartment" placeholder="Department">
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="updateDepartment"
+              id="exampleInputDepartment" placeholder="Department">
           </div>
           <div class="form-group m-2">
             <label class="mb-2" for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateEmail" id="exampleInputEmail1" aria-describedby="emailHelp"
-              placeholder="Enter email">
+            <input type="email" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="updateEmail"
+              id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
 
           </div>
           <div class="form-group m-2">
             <label class="mb-2" for="exampleInputPassword1">Phone Number</label>
-            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updatePhone" id="exampleInputPhone" placeholder="Phone Number">
+            <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="updatePhone"
+              id="exampleInputPhone" placeholder="Phone Number">
           </div>
           <!-- {{updateDate}} -->
           <div class="form-group m-2">
             <label class="mb-2" for="exampleInputPassword1">Date of Joining</label>
-            <input type="date" class="form-control" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updateDate" id="exampleInputDesignation" placeholder="Designantion">
+            <input type="date" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="updateDate"
+              id="exampleInputDesignation" placeholder="Designantion">
           </div>
           <div class="form-check m-2">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -130,25 +134,17 @@
         </form>
 
         <!-- <button type="button" (click)="Save()" class="btn btn-primary btn-lg btn-block">Submit Deatils</button> -->
-         <!-- <div class="container">
+        <!-- <div class="container">
 
           <button type="button" class="btn btn-primary  btn-block">Submit</button>
         </div> -->
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success"
-                (click)="Save()">
+        <button type="button" (click)="save()" class="btn btn-success">
           Save Update
         </button>
       </div>
     </div>
   </div>
-</div>
-
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                  showFirstLastButtons
-                  aria-label="Select page of periodic elements">
-    </mat-paginator> -->
-
 </div>

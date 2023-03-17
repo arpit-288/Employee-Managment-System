@@ -27,32 +27,28 @@ const db = createPool({
 
 
 // Getting all the data from database
-app.get('/home', (req, res) => {
+// app.get('/home', (req, res) => {
 
-  // res.send('User Page is loading...');
-  let sql = "Select * from employee";
-  db.query(sql, (err, result) => {
+//   // res.send('User Page is loading...');
+//   let sql = "Select * from employee";
+//   db.query(sql, (err, result) => {
 
-    if (err) {
-      console.log(err, 'There is an error here');
-      res.send({
-        message: 'Error in loading data..'
-      })
-    }
+//     if (err) {
+//       console.log(err, 'There is an error here');
+//       res.send({
+//         message: 'Error in loading data..'
+//       })
+//     }
 
-    res.send({
-      message: 'all user data',
-      data: result
-    });
+//     res.send({
+//       message: 'all user data',
+//       data: result
+//     });
 
-  });
-});
+//   });
+// });
 
-// const middlewaren=(req,res,next)=>{
-//   console.log("this is midleware");
 
-//   next();
-// }
 
 // Getting  single data
 app.get('/home/:id', (req, res) => {
@@ -81,9 +77,6 @@ app.get('/home/:id', (req, res) => {
   });
 });
 
-// app.get('/secfile' , middlewaren ,(req,res)=>{
-//   res.send("secretttttt!")
-// })
 
 function myQuery(database,sql,res){
     return new Promise((resolv,reject)=>{
@@ -139,7 +132,7 @@ app.post('/signup',async (req, res) => {
 
 });
 
-console.log( process.env.TOKEN_KEY);
+// console.log( process.env.TOKEN_KEY);
 
 // vailidate Login Crediential
 app.post("/login", (req, res) => {
@@ -205,49 +198,7 @@ app.post("/login", (req, res) => {
 
 
 
-// Update Data
-app.put("/employee/:id", (req, res) => {
 
-  // console.log(req.body,'createdata');
-
-  let uid = req.params.id;
-  let task_name = req.body.task_name;
-
-  let qr = `update user set task_name ${task_name} where id=${uid}`;
-
-  db.query(qr, (err, result) => {
-
-    if (err) {
-      console.log(err, "Error in updating data");
-    }
-    res.send({
-      message: 'Data Updated...'
-    });
-
-  });
-
-});
-
-// Delete Single Data
-app.delete('/employee/:id', (req, res) => {
-  let qid = req.params.id;
-  let qr = `delete from user where id = ${qid}`;
-
-  db.query(qr, (err, result) => {
-    if (err) {
-      console.log(err, "Error in deleting data");
-      res.send({
-        message: "Server Error",
-        error: true
-      });
-    }
-    res.send({
-      error: false,
-      message: 'Data Deleted..'
-    });
-
-  });
-});
 
 
 
@@ -325,8 +276,8 @@ app.post('/employeedetails',(req,res)=>{
 
 // Delete Employee Data
 app.delete('/employeedetails/:id', (req, res) => {
+  
   let qid = req.params.id;
-  // console.log(qid);
   let qr = `delete from employeedetails where id = ${qid}`;
 
   db.query(qr, (err, result) => {
@@ -344,6 +295,42 @@ app.delete('/employeedetails/:id', (req, res) => {
 
   });
 });
+
+app.put("/employeedetails/:id", (req, res) => {
+
+  // console.log(req.body,'createdata');
+              
+  let id = req.params.id;
+  let name = req.body.Name;
+  let designation = req.body.Designation;
+  let department = req.body.Designation;
+  let email = req.body.Email;
+  let phone = req.body.Phone;
+  let date = req.body.Date;
+ 
+  let qr = `update employeedetails set Name = '${name}',Designation = '${designation}', Department = '${department}', 
+             Email = '${email}', Phone = '${phone}', Date = '${date}' where id='${id}'`;
+
+  db.query(qr, (err, result) => {
+    let error = false
+    let message
+    if (err) {
+      error = true
+      message = 'Syntax error'
+      console.log(err, "Error in updating data");
+    }else{
+      message = 'Data update'
+    }
+    res.send({
+      message: message,
+      error:error
+    });
+
+  });
+
+});
+
+
 
 
 

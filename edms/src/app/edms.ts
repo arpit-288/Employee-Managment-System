@@ -1,5 +1,6 @@
 export interface edms {
-  // sno: number,
+  sno: number,
+  id:number,
   Name:string,
   Designation:string,
   Department:string,

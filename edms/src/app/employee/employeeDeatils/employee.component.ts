@@ -14,22 +14,28 @@ import * as moment from 'moment';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements  OnInit {
-  displayedColumns: string[] = ['id','Name','Designation','Department','Email','Phone','Date','delete','update'];
+
+
+
+export class EmployeeComponent implements OnInit {
+
+
+  displayedColumns: string[] = [ 'id', 'Name', 'Designation', 'Department', 'Email', 'Phone', 'Date', 'delete', 'update'];
   dataSource = new MatTableDataSource<edms>();
   displayStyle = "none";
 
-  updateName:string='';
-  updateDepartment:string='';
-  updateDesignation:string='';
-  updateEmail:string='';
-  updatePhone:number;
-  updateDate:Date|string;
-
+  idd:number;
+  updateName: string = '';
+  updateDepartment: string = '';
+  updateDesignation: string = '';
+  updateEmail: string = '';
+  updatePhone: number;
+  updateDate: Date | string;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
+
 
   constructor(private route: Router, private EdmsService: EdmsService) { }
 
@@ -40,61 +46,85 @@ export class EmployeeComponent implements  OnInit {
   edmsData = []
 
 
+  ngAfterViewInit() {
+
+
+    // this.pagination();
+    this.dataSource.paginator = this.paginator;
+  }
+
+
+
+
+
+
   getAllData() {
+
     this.EdmsService.getAllEmployeeDetails().subscribe((edms) => {
-
-      console.log("coulmns", this.displayedColumns[0]);
-
+      // console.log("coulmns", this.displayedColumns[0]);
+      // console.log(edms,"Check EDMS");
 
       this.dataSource.data = edms;
+      console.log(this.dataSource.data);
+
+      for(let i=0;i<this.dataSource.data.length;i++){
+        this.dataSource.data[i].sno=i+1;
+    }
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+
   }
 
-  deleteEmployee(id:any,i:number){
-    this.EdmsService.deleteEmployee(id).subscribe((res)=>{
-     if(!res['error']){
+  deleteEmployee(id: any, i: number) {
+    this.EdmsService.deleteEmployee(id).subscribe((res) => {
+      if (!res['error']) {
         alert('Employee Deleted');
         let data = this.dataSource.data
         console.log(data);
-        data.splice(i,1);
+        data.splice(i, 1);
         console.log(data);
         this.dataSource.data = data
-     }
-    },(err)=>{})
+      }
+    }, (err) => { })
   }
 
 
 
 
-  update(id:any) {
+  update(id: any,i:number) {
+
     this.displayStyle = "block";
+    // console.log(this.dataSource.data[i].Name);
 
-    this.updateName=this.dataSource.data[id].Name;
-    this.updateDesignation=this.dataSource.data[id].Designation;
-    this.updateDepartment=this.dataSource.data[id].Department;
-    this.updateEmail=this.dataSource.data[id].Email;
-    this.updatePhone=this.dataSource.data[id].Phone;
-    this.updateDate= moment.utc(this.dataSource.data[id].Date).format('YYYY-MM-DD') ;
-    // console.log(this.updateDate)
+    this.idd = id;
+    this.updateName = this.dataSource.data[i].Name;
+    this.updateDesignation = this.dataSource.data[i].Designation;
+    this.updateDepartment = this.dataSource.data[i].Department;
+    this.updateEmail = this.dataSource.data[i].Email;
+    this.updatePhone = this.dataSource.data[i].Phone;
+    this.updateDate = moment.utc(this.dataSource.data[i].Date).format('YYYY-MM-DD');
+
 
   }
 
-  Save() {
 
-    let obj = { Name: this.updateName, Designation: this.updateDesignation, Department: this.updateDepartment, Email: this.updateEmail, Phone: this.updatePhone,Date:this.updateDate};
+  save(){
+    let i = this.idd;
+    let obj = { Name: this.updateName, Designation: this.updateDesignation, Department: this.updateDepartment, Email: this.updateEmail, Phone: this.updatePhone, Date: this.updateDate };
 
-    this.EdmsService.postingData(obj).subscribe((res)=>{
-      console.log(res);
-    },(err)=>{})
+    // console.log(i);
+    this.EdmsService.updateEmployeeDetails(i,obj).subscribe((res) => {
+          console.log(res);
+        }, (err) => { })
 
+        // let data = this.dataSource.data;
+        // data[]
+      window.location.reload();
 
-
-
-    this.displayStyle = "none";
-
+      this.displayStyle = "none";
   }
+
 
 
   // clickedRows = new Set<edms>();
